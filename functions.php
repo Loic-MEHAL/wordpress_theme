@@ -8,14 +8,14 @@ add_theme_support( 'title-tag' );
 
 
 function check_for_theme_update($transient) {
-    // Ne rien faire si les thèmes n'ont pas encore été vérifiés
+    var_dump("coucou");
     if (empty($transient->checked)) {
         return $transient;
     }
 
-    // Informations sur le dépôt GitHub
-    $theme_slug = 'wordpress-theme';  // Remplacez par le nom de votre thème
-    $github_api_url = 'https://api.github.com/repos/Loic-MEHAL/'.$theme_slug.'/releases/latest';  // Remplacez par votre dépôt GitHub
+    // Définir les informations du dépôt GitHub
+    $theme_slug = 'wordpress_theme'; // Le slug de votre thème
+    $github_api_url = 'https://api.github.com/repos/Loic-MEHAL/'.$theme_slug.'/releases/latest';
     $theme_version = wp_get_theme()->get('Version');  // Version actuelle du thème
 
     // Faire une requête à l'API GitHub pour obtenir les informations sur la dernière release
@@ -39,7 +39,6 @@ function check_for_theme_update($transient) {
     return $transient;
 }
 
-// Ajouter le filtre pour vérifier les mises à jour de thèmes
 add_filter('pre_set_site_transient_update_themes', 'check_for_theme_update');
 
 
@@ -50,7 +49,7 @@ function add_theme_update_details($response, $action, $args) {
     }
 
     // Vérifier que c'est bien notre thème
-    $theme_slug = 'wordpress-theme';
+    $theme_slug = 'wordpress_theme';
     if ($args->slug !== $theme_slug) {
         return $response;
     }
